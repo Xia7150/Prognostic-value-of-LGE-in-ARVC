@@ -1,0 +1,293 @@
+
+  ___  ____  ____  ____  ____ (R)
+ /__    /   ____/   /   ____/
+___/   /   /___/   /   /___/   12.0   Copyright 1985-2011 StataCorp LP
+  Statistics/Data Analysis            StataCorp
+                                      4905 Lakeway Drive
+     Special Edition                  College Station, Texas 77845 USA
+                                      800-STATA-PC        http://www.stata.com
+                                      979-696-4600        stata@stata.com
+                                      979-696-4601 (fax)
+
+
+Notes:
+      1.  (/v# option or -set maxvar-) 5000 maximum variables
+
+running K:\software\STATA 12\profile.do ...
+file K:\software\STATA 12\log\s183514.smcl could not be opened
+r(603);
+
+
+. use "C:\Users\Administrator\Desktop\all_cause_mortality.dta", clear
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  6.741       1.433    31.707         51.18
+Ghannudi (2014)      |  4.063       0.213    77.415         23.69
+Chen (2019)          |  1.468       0.062    34.656         25.14
+Aquaro (2018)        |  (Excluded)
+Shen (2019)          |  (Excluded)
+---------------------+---------------------------------------------------
+M-H pooled RR        |  4.781       1.409    16.227        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   0.74 (d.f. = 2) p = 0.692
+  I-squared (variation in RR attributable to heterogeneity) =   0.0%
+
+  Test of RR=1 : z=   2.51 p = 0.012
+
+. use "C:\Users\Administrator\Desktop\mace.dta", clear
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  6.741       1.433    31.707         13.32
+Ghannudi (2014)      |  1.874       0.638     5.505         49.45
+Aquaro (2018)        |  1.000       0.108     9.229         12.99
+Chen (2019)          |  1.435       0.158    13.019         13.19
+Shen (2019)          |  3.059       0.363    25.765         11.05
+---------------------+---------------------------------------------------
+M-H pooled RR        |  2.482       1.241     4.965        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   2.78 (d.f. = 4) p = 0.596
+  I-squared (variation in RR attributable to heterogeneity) =   0.0%
+
+  Test of RR=1 : z=   2.57 p = 0.010
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr xlabel(0.0315,1,31.9)
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  6.741       1.433    31.707         13.32
+Ghannudi (2014)      |  1.874       0.638     5.505         49.45
+Aquaro (2018)        |  1.000       0.108     9.229         12.99
+Chen (2019)          |  1.435       0.158    13.019         13.19
+Shen (2019)          |  3.059       0.363    25.765         11.05
+---------------------+---------------------------------------------------
+M-H pooled RR        |  2.482       1.241     4.965        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   2.78 (d.f. = 4) p = 0.596
+  I-squared (variation in RR attributable to heterogeneity) =   0.0%
+
+  Test of RR=1 : z=   2.57 p = 0.010
+
+. metabias logrr selogrr, graph(begg)
+variable logrr not found
+r(111);
+
+. 
+. metafunnel logrr selogrr
+variable logrr not found
+r(111);
+
+. gen logrr=log(_ES)
+
+. 
+. gen selogrr=_selogES
+
+. 
+. metabias logrr selogrr, graph(begg)
+
+Note: default data input format (theta, se_theta) assumed.
+
+Tests for Publication Bias
+
+Begg's Test
+ 
+  adj. Kendall's Score (P-Q) =      -4
+          Std. Dev. of Score =    4.08 
+           Number of Studies =       5
+                          z  =   -0.98
+                    Pr > |z| =   0.327
+                          z  =    0.73 (continuity corrected)
+                    Pr > |z| =   0.462 (continuity corrected)
+
+Egger's test
+------------------------------------------------------------------------------
+     Std_Eff |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       slope |    1.06851   1.181428     0.90   0.432     -2.69132     4.82834
+        bias |  -.2527765    1.42986    -0.18   0.871     -4.80323    4.297677
+------------------------------------------------------------------------------
+
+. 
+. metafunnel logrr selogrr
+
+Note: default data input format (theta, se_theta) assumed.
+
+. metaninf ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+------------------------------------------------------------------------------
+ Study omitted     |   Estimate       [95%  Conf.  Interval]
+-------------------+----------------------------------------------------------
+ Deac (2013)       |   1.827068       .81070077    4.1176438
+ Ghannudi (2014)   |   3.0764027      1.229638     7.6967797
+ Aquaro (2018)     |   2.7030189      1.2942263    5.6453128
+ Chen (2019)       |   2.6407335      1.2676907    5.5009265
+ Shen (2019)       |   2.4100699      1.1583395    5.014451
+-------------------+----------------------------------------------------------
+ Combined          |   2.4817252      1.2405637    4.9646463
+------------------------------------------------------------------------------
+
+. use "C:\Users\Administrator\Desktop\ventricular_tachycardia.dta", clear
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  3.852       0.355    41.844          5.13
+Ghannudi (2014)      |  4.036       1.666     9.780         47.58
+Aquaro (2018)        |  1.500       0.189    11.927         10.00
+Chen (2019)          |  1.674       0.378     7.406         20.30
+Shen (2019)          |  3.059       0.708    13.210         17.00
+---------------------+---------------------------------------------------
+M-H pooled RR        |  3.127       1.692     5.780        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   1.51 (d.f. = 4) p = 0.825
+  I-squared (variation in RR attributable to heterogeneity) =   0.0%
+
+  Test of RR=1 : z=   3.64 p = 0.000
+
+. gen logrr=log(_ES)
+
+. 
+. gen selogrr=_selogES
+
+. 
+. metabias logrr selogrr, graph(begg)
+
+Note: default data input format (theta, se_theta) assumed.
+
+Tests for Publication Bias
+
+Begg's Test
+ 
+  adj. Kendall's Score (P-Q) =      -2
+          Std. Dev. of Score =    4.08 
+           Number of Studies =       5
+                          z  =   -0.49
+                    Pr > |z| =   0.624
+                          z  =    0.24 (continuity corrected)
+                    Pr > |z| =   0.806 (continuity corrected)
+
+Egger's test
+------------------------------------------------------------------------------
+     Std_Eff |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       slope |   1.718529   .5244188     3.28   0.047     .0495943    3.387464
+        bias |  -.9303264   .7417974    -1.25   0.299    -3.291057    1.430404
+------------------------------------------------------------------------------
+
+. 
+. metafunnel logrr selogrr
+
+Note: default data input format (theta, se_theta) assumed.
+
+. metaninf ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+------------------------------------------------------------------------------
+ Study omitted     |   Estimate       [95%  Conf.  Interval]
+-------------------+----------------------------------------------------------
+ Deac (2013)       |   3.0882719      1.6361202    5.8292918
+ Ghannudi (2014)   |   2.3028579      .97834402    5.4205418
+ Aquaro (2018)     |   3.3082607      1.7356319    6.3058238
+ Chen (2019)       |   3.4975381      1.7721587    6.9027529
+ Shen (2019)       |   3.1414716      1.5971876    6.1788883
+-------------------+----------------------------------------------------------
+ Combined          |   3.1274204      1.6923082    5.7795374
+------------------------------------------------------------------------------
+
+. use "C:\Users\Administrator\Desktop\icd.dta", clear
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  4.237       1.524    11.779         28.19
+Ghannudi (2014)      |  9.802       1.336    71.934         10.46
+Aquaro (2018)        |  1.000       0.108     9.229         11.00
+Chen (2019)          |  1.435       0.315     6.544         22.32
+Shen (2019)          |  1.784       0.510     6.243         28.04
+---------------------+---------------------------------------------------
+M-H pooled RR        |  3.150       1.690     5.873        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   4.42 (d.f. = 4) p = 0.353
+  I-squared (variation in RR attributable to heterogeneity) =   9.4%
+
+  Test of RR=1 : z=   3.61 p = 0.000
+
+. metan ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr xlabel(0.0139,1,71.95)
+
+           Study     |     RR    [95% Conf. Interval]     % Weight
+---------------------+---------------------------------------------------
+Deac (2013)          |  4.237       1.524    11.779         28.19
+Ghannudi (2014)      |  9.802       1.336    71.934         10.46
+Aquaro (2018)        |  1.000       0.108     9.229         11.00
+Chen (2019)          |  1.435       0.315     6.544         22.32
+Shen (2019)          |  1.784       0.510     6.243         28.04
+---------------------+---------------------------------------------------
+M-H pooled RR        |  3.150       1.690     5.873        100.00
+---------------------+---------------------------------------------------
+
+  Heterogeneity chi-squared =   4.42 (d.f. = 4) p = 0.353
+  I-squared (variation in RR attributable to heterogeneity) =   9.4%
+
+  Test of RR=1 : z=   3.61 p = 0.000
+
+. gen logrr=log(_ES)
+
+. 
+. gen selogrr=_selogES
+
+. 
+. metabias logrr selogrr, graph(begg)
+
+Note: default data input format (theta, se_theta) assumed.
+
+Tests for Publication Bias
+
+Begg's Test
+ 
+  adj. Kendall's Score (P-Q) =      -4
+          Std. Dev. of Score =    4.08 
+           Number of Studies =       5
+                          z  =   -0.98
+                    Pr > |z| =   0.327
+                          z  =    0.73 (continuity corrected)
+                    Pr > |z| =   0.462 (continuity corrected)
+
+Egger's test
+------------------------------------------------------------------------------
+     Std_Eff |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+       slope |   1.462096   1.365743     1.07   0.363    -2.884309    5.808502
+        bias |  -.6643343   1.886143    -0.35   0.748    -6.666884    5.338216
+------------------------------------------------------------------------------
+
+. 
+. metafunnel logrr selogrr
+
+Note: default data input format (theta, se_theta) assumed.
+
+. metaninf ze zn pe pn,label(namevar=author,yearvar=year) textsize(180) fixed rr
+
+------------------------------------------------------------------------------
+ Study omitted     |   Estimate       [95%  Conf.  Interval]
+-------------------+----------------------------------------------------------
+ Deac (2013)       |   2.7236125      1.2395052    5.9846988
+ Ghannudi (2014)   |   2.3729866      1.2426032    4.5316682
+ Aquaro (2018)     |   3.4158375      1.7734187    6.5793529
+ Chen (2019)       |   3.6429574      1.8204956    7.2898498
+ Shen (2019)       |   3.6824198      1.7834126    7.6035209
+-------------------+----------------------------------------------------------
+ Combined          |   3.1501896      1.68965      5.873225
+------------------------------------------------------------------------------
+
+. 
